@@ -39,7 +39,26 @@
           </div>
         </div>
       </div>
-      <div class="text-center" v-else>asu</div>
+      <div
+        class="flex flex-wrap w-3/5 mx-auto content-center justify-center"
+        v-else
+      >
+        <div
+          class="flex justify-between border text-left shadow-md rounded-2xl pl-2 py-2 cursor-pointer hover:shadow-xl hover:bg-slate-200 hover:border-slate-700 hover:text-slate-900 m-5"
+          v-for="n in 10"
+          :key="n"
+        >
+          <div class="text-slate-800">
+            <h5 class="font-bold text-lg">My Dog is DYING !!</h5>
+            <p class="text-sm font-light text-slate-600">Dec 22, 2021</p>
+          </div>
+          <div
+            class="rounded-full bg-red-500 w-10 h-10 ml-24 mr-5 py-[9px] px-[17px]"
+          >
+            ?
+          </div>
+        </div>
+      </div>
     </transition>
   </div>
 </template>
