@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-container {
+  @apply text-justify mx-20 shadow-lg rounded-sm px-10 pt-10 pb-20 font-light text-slate-800;
+}
