@@ -16,7 +16,9 @@
         <UsersStatusCircle :status="pengaduan.detail.status" />
       </div>
     </nav>
-    <div class="custom-container my-10">
+    <div
+      class="custom-container my-10 first-letter:text-4xl first-letter:font-semibold first-letter:mr-1 first-letter:uppercase"
+    >
       {{ pengaduan.isiLaporan }}
     </div>
     <div class="custom-container mt-20">
