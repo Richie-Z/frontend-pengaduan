@@ -20,7 +20,6 @@
             type="file"
             ref="lampiranFiles"
             class="file:bg-stone-900 file:rounded-lg file:text-slate-300 file:border-none file:shadow-xl hover:file:bg-stone-600 hover:file:text-slate-100 file:px-4"
-            @change="previewFiles(i)"
           />
           <button
             class="btn-lampiran bg-red-500 border-red-900 hover:bg-red-900"
@@ -70,9 +69,6 @@ export default {
     spliceLampiran(i) {
       this.$refs.lampiranFiles[i].value = "";
       this.post.lampiran.splice(i, 1);
-    },
-    previewFiles(i) {
-      this.post.lampiran[i] = this.$refs.lampiranFiles[i].files;
     },
     async saveLampiran() {
       let body = new FormData();
