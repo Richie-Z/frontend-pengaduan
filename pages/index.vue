@@ -40,6 +40,7 @@
 <script>
 export default {
   name: "IndexPage",
+  layout: "users/default",
   data: () => ({
     navs: [
       { name: "Data Diri", isOpen: false },

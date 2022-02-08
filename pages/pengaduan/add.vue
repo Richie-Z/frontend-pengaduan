@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  layout: "PengaduanAdd",
+  layout: "users/PengaduanAdd",
   data: () => ({
     post: {
       isiLaporan: "",

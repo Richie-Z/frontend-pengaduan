@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  layout: "PengaduanSlug",
+  layout: "users/PengaduanSlug",
   data: () => ({
     pengaduan: {
       detail: {
