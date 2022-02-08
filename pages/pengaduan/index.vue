@@ -4,10 +4,8 @@
 
 <script>
 export default {
-  mounted() {
-    window?.onNuxtReady(() => {
-      window.$nuxt.$router.push({ name: "index" });
-    });
+  middleware({ redirect }) {
+    redirect("/");
   },
 };
 </script>
