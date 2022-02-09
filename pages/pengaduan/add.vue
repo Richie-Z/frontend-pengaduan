@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { Toast } from "@/plugins/swal";
 export default {
   layout: "users/PengaduanAdd",
   data: () => ({
@@ -77,6 +78,8 @@ export default {
         body.append("lampiran", x.files[0])
       );
       await this.$axios.$post("pengaduan", body);
+      this.$nuxt.$router.push("/");
+      Toast.fire({ icon: "success", title: "Success Create Pengaduan" });
     },
   },
 };
