@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "IndexPage",
   layout: "users/default",
@@ -46,8 +47,10 @@ export default {
       { name: "Data Diri", isOpen: false },
       { name: "Aduan", isOpen: false },
     ],
-    pengaduans: [],
   }),
+  computed: {
+    ...mapGetters({ pengaduans: "pengaduans/data" }),
+  },
   methods: {
     openNav(name, fromHook = false) {
       this.navs.forEach((x) => (x.isOpen = x.name === name));
@@ -59,8 +62,8 @@ export default {
     return { ip };
   },
   async fetch() {
-    const pengaduans = await this.$axios.$get("pengaduan");
-    this.pengaduans = pengaduans.data;
+    const { data } = await this.$axios.$get("pengaduan");
+    this.$store.dispatch("pengaduans/storePengaduan", data);
   },
   beforeMount() {
     this.openNav(localStorage.getItem("menu") ?? "Data Diri", true);
