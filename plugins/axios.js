@@ -1,8 +1,11 @@
-export default function ({ $axios, error: nuxtError }) {
+import Swal from "sweetalert2";
+
+export default function ({ $axios }) {
   $axios.onError((err) => {
-    nuxtError({
-      statusCode: err.response.status,
-      message: err.message,
+    Swal.fire({
+      title: `Error: ${err.response.status}`,
+      text: err.response.data.message,
+      icon: "error",
     });
     return Promise.resolve(false);
   });
