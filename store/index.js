@@ -1,8 +1,8 @@
 export const state = () => ({
-  counter: 0,
+  authenticated: false,
 });
 export const mutations = {
-  increment(state) {
-    state.counter++;
+  CHANGE_AUTH(state) {
+    state.authenticated = !state.authenticated;
   },
 };
