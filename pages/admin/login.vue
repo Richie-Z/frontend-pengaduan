@@ -20,7 +20,13 @@
 <script>
 import { Toast } from "~/plugins/swal";
 export default {
-  middleware: "guest",
+  async middleware({ $axios, store, redirect }) {
+    const user = await $axios.$get("auth/me");
+    if (user.status) {
+      store.commit("LOGIN");
+      redirect({ name: "admin" });
+    }
+  },
   data: () => ({
     data: {
       username: "",
@@ -29,13 +35,16 @@ export default {
   }),
   methods: {
     async login() {
-      const response = await this.$axios.$post("/api/auth/login", this.data);
-      if (response.status)
+      const response = await this.$axios.$post("auth/login", this.data);
+      if (response.status) {
         Toast.fire({ icon: "success", title: response.message });
+        this.$store.commit("LOGIN");
+        this.$nuxt.$router.push({ name: "admin" });
+      }
     },
   },
   async mounted() {
-    const csrfToken = await this.$axios.$get("/api/csrf-token");
+    const csrfToken = await this.$axios.$get("csrf-token");
     console.log(csrfToken);
   },
 };

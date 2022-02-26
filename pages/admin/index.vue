@@ -4,11 +4,7 @@
 
 <script>
 export default {
-  // middleware: "authenticated",
-  async mounted() {
-    const data = await this.$axios.$get("/api/auth/me");
-    console.log(data);
-  },
+  middleware: "authenticated",
 };
 </script>
 
