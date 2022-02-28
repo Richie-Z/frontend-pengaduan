@@ -1,19 +1,23 @@
 <template>
-  <div>
-    <div>
-      <label for="username">Username</label>
-      <input type="text" name="username" v-model="data.username" />
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="px-20 py-5 rounded-md shadow-md w-fit">
+      <div class="form-box">
+        <label for="username">Username</label>
+        <input type="text" name="username" v-model="data.username" />
+      </div>
+      <div class="form-box">
+        <label for="password">Password</label>
+        <input type="password" name="password" v-model="data.password" />
+      </div>
+      <div class="flex justify-center">
+        <button
+          class="px-5 py-2 my-2 rounded-md shadow-md bg-stone-900 text-stone-200"
+          @click="login"
+        >
+          Submit
+        </button>
+      </div>
     </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" name="password" v-model="data.password" />
-    </div>
-    <button
-      class="px-5 py-2 my-2 rounded-md shadow-md bg-stone-900 text-stone-200"
-      @click="login"
-    >
-      submit
-    </button>
   </div>
 </template>
 
@@ -52,6 +56,9 @@ export default {
 
 <style scoped>
 input {
-  @apply border;
+  @apply border rounded px-1;
+}
+.form-box {
+  @apply my-2 flex flex-col;
 }
 </style>
