@@ -18,110 +18,78 @@
           v-if="isOpen"
           class="absolute w-32 py-2 mt-16 bg-white rounded-lg shadow-lg"
         >
-          <a href="#" class="block px-4 py-2 account-link hover:text-white"
-            >Account</a
-          >
-          <a href="#" class="block px-4 py-2 account-link hover:text-white"
-            >Support</a
-          >
-          <a href="#" class="block px-4 py-2 account-link hover:text-white"
-            >Sign Out</a
-          >
+          <a href="#" class="block px-4 py-2 hover:text-stone-500">Account</a>
+          <a href="#" class="block px-4 py-2 hover:text-stone-500">Sign Out</a>
         </div>
       </div>
     </header>
 
     <!-- Mobile Header & Nav -->
-    <header class="w-full px-6 py-5 bg-sidebar sm:hidden">
+    <header class="w-full px-6 py-5 bg-sidebar-500 sm:hidden">
       <div class="flex items-center justify-between">
-        <a
-          href="index.html"
+        <nuxt-link
+          :to="{ name: 'admin' }"
           class="text-3xl font-semibold text-white uppercase hover:text-gray-300"
-          >Admin</a
+          >Admin Pengaduan</nuxt-link
         >
         <button
           @click="isOpen = !isOpen"
           class="text-3xl text-white focus:outline-none"
         >
-          <i v-if="!isOpen" class="fas fa-bars"></i>
-          <i v-if="isOpen" class="fas fa-times"></i>
+          <font-awesome-icon icon="fa-solid fa-bars" v-if="!isOpen" />
+          <font-awesome-icon icon="fa-solid fa-times" v-if="isOpen" />
         </button>
       </div>
 
       <!-- Dropdown Nav -->
-      <nav :class="isOpen ? 'flex' : 'hidden'" class="flex flex-col pt-4">
-        <a
-          href="index.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
+      <nav
+        :class="isOpen ? 'flex' : 'hidden'"
+        class="flex flex-col pt-4"
+        id="navbar"
+      >
+        <nuxt-link
+          :to="{ name: 'admin' }"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-tachometer-alt"></i>
           Dashboard
-        </a>
+        </nuxt-link>
         <a
           href="blank.html"
-          class="flex items-center py-2 pl-4 text-white active-nav-link nav-item"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-sticky-note"></i>
-          Blank Page
+          Pengaduan
         </a>
         <a
           href="tables.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-table"></i>
-          Tables
+          Members
         </a>
         <a
           href="forms.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-align-left"></i>
-          Forms
-        </a>
-        <a
-          href="tabs.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
-        >
-          <i class="mr-3 fas fa-tablet-alt"></i>
-          Tabbed Content
-        </a>
-        <a
-          href="calendar.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
-        >
-          <i class="mr-3 fas fa-calendar"></i>
-          Calendar
+          Users
         </a>
         <a
           href="#"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
-        >
-          <i class="mr-3 fas fa-cogs"></i>
-          Support
-        </a>
-        <a
-          href="#"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-user"></i>
           My Account
         </a>
         <a
           href="#"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 nav-item"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-sign-out-alt"></i>
           Sign Out
         </a>
-        <button
-          class="flex items-center justify-center w-full py-2 mt-3 font-semibold bg-white rounded-lg shadow-lg cta-btn hover:shadow-xl hover:bg-gray-300"
-        >
-          <i class="mr-3 fas fa-arrow-circle-up"></i> Upgrade to Pro!
-        </button>
       </nav>
-      <!-- <button class="flex items-center justify-center w-full py-2 mt-5 font-semibold bg-white rounded-tr-lg rounded-bl-lg rounded-br-lg shadow-lg cta-btn hover:shadow-xl hover:bg-gray-300">
-                <i class="mr-3 fas fa-plus"></i> New Report
-            </button> -->
     </header>
   </div>
 </template>
