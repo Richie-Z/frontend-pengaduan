@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Karla";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/karla/v21/qkB9XvYC6trAT55ZBi1ueQVIjQTD-JrIH2G7nytkHRyQ8p4wUje6bg.woff2)
     format("woff2");
@@ -13,27 +13,12 @@
     U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
 }
-.bg-sidebar {
-  background: #3d68ff;
-}
-.cta-btn {
-  color: #3d68ff;
-}
-.upgrade-btn {
-  background: #1947ee;
-}
-.upgrade-btn:hover {
-  background: #0038fd;
-}
-.active-nav-link {
-  background: #1947ee;
-}
-.nav-item:hover {
-  background: #1947ee;
-}
-.account-link:hover {
-  background: #3d68ff;
-}
 .custom-container {
   @apply px-10 pt-10 pb-20 mx-20 font-light text-justify rounded-sm shadow-lg text-slate-800;
+}
+#navbar a.nuxt-link-exact-active {
+  @apply opacity-100 bg-sidebar-900;
+}
+#navbar a {
+  @apply font-semibold;
 }
