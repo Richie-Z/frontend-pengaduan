@@ -1,11 +1,8 @@
-<template>
-  <div></div>
-</template>
+<template></template>
 
 <script>
 export default {
   middleware: "authenticated",
+  layout: "admin/default",
 };
 </script>
-
-<style lang="scss" scoped></style>
