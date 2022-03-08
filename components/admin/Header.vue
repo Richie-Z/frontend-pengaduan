@@ -16,10 +16,12 @@
         ></button>
         <div
           v-if="isOpen"
-          class="absolute w-32 py-2 mt-16 bg-white rounded-lg shadow-lg"
+          class="absolute z-10 w-32 py-2 mt-16 bg-white rounded-lg shadow-lg"
         >
           <a href="#" class="block px-4 py-2 hover:text-stone-500">Account</a>
-          <a href="#" class="block px-4 py-2 hover:text-stone-500">Sign Out</a>
+          <button @click="logout" class="block px-4 py-2 hover:text-stone-500">
+            Sign Out
+          </button>
         </div>
       </div>
     </header>
@@ -82,23 +84,34 @@
           <i class="mr-3 fas fa-user"></i>
           My Account
         </a>
-        <a
-          href="#"
+        <button
+          @click="logout"
           class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
         >
           <i class="mr-3 fas fa-sign-out-alt"></i>
           Sign Out
-        </a>
+        </button>
       </nav>
     </header>
   </div>
 </template>
 
 <script>
+import { Toast } from "~/plugins/swal";
 export default {
   data: () => ({
     isOpen: false,
   }),
+  methods: {
+    async logout() {
+      const response = await this.$axios.$delete("auth/logout");
+      if (response.status) {
+        Toast.fire({ icon: "success", title: response.message });
+        this.$store.dispatch("petugas/storePetugas", null);
+        this.$nuxt.$router.push({ name: "admin-login" });
+      }
+    },
+  },
 };
 </script>
 
