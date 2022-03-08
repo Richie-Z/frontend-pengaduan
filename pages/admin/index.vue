@@ -14,7 +14,7 @@
               <h3
                 class="my-3 text-3xl font-semibold leading-tight text-gray-700"
               >
-                3,682
+                {{ data.members }}
               </h3>
               <p class="text-xs leading-tight text-green-500">▲ 57.1%</p>
             </div>
@@ -36,7 +36,7 @@
               <h3
                 class="my-3 text-3xl font-semibold leading-tight text-gray-700"
               >
-                11,427
+                {{ data.pengaduan }}
               </h3>
               <p class="text-xs leading-tight text-red-500">▼ 42.8%</p>
             </div>
@@ -58,7 +58,7 @@
               <h3
                 class="my-3 text-3xl font-semibold leading-tight text-gray-700"
               >
-                8,028
+                {{ data.petugas }}
               </h3>
               <p class="text-xs leading-tight text-green-500">▲ 8.2%</p>
             </div>
@@ -73,8 +73,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   middleware: "authenticated",
   layout: "admin/default",
+  async asyncData({ $axios }) {
+    const { data } = await $axios.$get("petugas/dashboard");
+    return { data };
+  },
+  computed: {
+    ...mapGetters({ petugas: "petugas/getPetugas" }),
+  },
 };
 </script>
