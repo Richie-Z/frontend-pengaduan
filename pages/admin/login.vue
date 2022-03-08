@@ -24,10 +24,13 @@
 <script>
 import { Toast } from "~/plugins/swal";
 export default {
-  async middleware({ $axios, store, redirect }) {
+  async middleware({ $axios, store, redirect, route }) {
+    console.log(route)
+    if (store.state.petugas.petugas !== null) redirect({ name: "admin" });
     const user = await $axios.$get("auth/me");
     if (user.status) {
-      store.commit("LOGIN");
+      if (store.state.petugas.petugas === null)
+        store.dispatch("petugas/storePetugas", user.data);
       redirect({ name: "admin" });
     }
   },
@@ -42,14 +45,13 @@ export default {
       const response = await this.$axios.$post("auth/login", this.data);
       if (response.status) {
         Toast.fire({ icon: "success", title: response.message });
-        this.$store.commit("LOGIN");
+        this.$store.dispatch("petugas/storePetugas", response.data);
         this.$nuxt.$router.push({ name: "admin" });
       }
     },
   },
   async mounted() {
-    const csrfToken = await this.$axios.$get("csrf-token");
-    console.log(csrfToken);
+    await this.$axios.$get("csrf-token");
   },
 };
 </script>

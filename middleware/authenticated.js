@@ -1,9 +1,8 @@
 export default async ({ store, redirect, $axios }) => {
   const user = await $axios.$get("auth/me");
-  console.log(user);
-  if (!user.status && !store.state.authenticated)
+  if (!user.status && store.state.petugas.petugas === null)
     return redirect({ name: "admin-login" });
-  if (user.status) {
-    store.commit("LOGIN");
+  if (user.status && store.state.petugas.petugas === null) {
+    store.dispatch("petugas/storePetugas", user.data);
   }
 };
