@@ -9,28 +9,6 @@
           >
             <div class="relative z-10 px-3 pt-8 pb-10 text-center">
               <h4 class="text-sm leading-tight text-gray-500 uppercase">
-                Members
-              </h4>
-              <h3
-                class="my-3 text-3xl font-semibold leading-tight text-gray-700"
-              >
-                {{ data.members }}
-              </h3>
-              <p class="text-xs leading-tight text-green-500">▲ 57.1%</p>
-            </div>
-            <div class="absolute inset-x-0 bottom-0">
-              <canvas id="chart1" height="70"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="w-full px-2 md:w-1/3">
-        <div class="mb-4 rounded-lg shadow-sm">
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
-          >
-            <div class="relative z-10 px-3 pt-8 pb-10 text-center">
-              <h4 class="text-sm leading-tight text-gray-500 uppercase">
                 Pengaduan
               </h4>
               <h3
@@ -42,6 +20,28 @@
             </div>
             <div class="absolute inset-x-0 bottom-0">
               <canvas id="chart2" height="70"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full px-2 md:w-1/3">
+        <div class="mb-4 rounded-lg shadow-sm">
+          <div
+            class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+          >
+            <div class="relative z-10 px-3 pt-8 pb-10 text-center">
+              <h4 class="text-sm leading-tight text-gray-500 uppercase">
+                Members
+              </h4>
+              <h3
+                class="my-3 text-3xl font-semibold leading-tight text-gray-700"
+              >
+                {{ data.members }}
+              </h3>
+              <p class="text-xs leading-tight text-green-500">▲ 57.1%</p>
+            </div>
+            <div class="absolute inset-x-0 bottom-0">
+              <canvas id="chart1" height="70"></canvas>
             </div>
           </div>
         </div>
