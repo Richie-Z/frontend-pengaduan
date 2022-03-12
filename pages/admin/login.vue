@@ -24,7 +24,7 @@
 <script>
 import { Toast } from "~/plugins/swal";
 export default {
-  async middleware({ $axios, store, redirect, route }) {
+  async middleware({ $axios, store, redirect }) {
     if (store.state.petugas.petugas !== null) redirect({ name: "admin" });
     const user = await $axios.$get("auth/me");
     if (user.status) {

@@ -108,7 +108,7 @@ export default {
       if (response.status) {
         Toast.fire({ icon: "success", title: response.message });
         this.$store.dispatch("petugas/storePetugas", null);
-        this.$nuxt.$router.push({ name: "admin-login" });
+        this.$nuxt.$router.push("/");
       }
     },
   },
