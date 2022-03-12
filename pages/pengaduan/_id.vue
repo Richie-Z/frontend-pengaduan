@@ -39,6 +39,82 @@
       </div>
       <div v-else class="text-center mt-20">Tidak ada lampiran!!</div>
     </div>
+    <div class="custom-container mt-20">
+      <h1 class="text-center font-bold text-xl">Tanggapan</h1>
+      <div v-if="prosesTanggapan.length > 0" class="mt-20">
+        <div class="flex justify-center flex-wrap">
+          <button
+            v-for="(v, i) in prosesTanggapan"
+            class="proses"
+            :class="{ '!bg-stone-700 cursor-default': activeProses === i }"
+            @click="activeProses = i"
+          >
+            Proses {{ i + 1 }}
+          </button>
+        </div>
+        <div class="flex">
+          <div class="w-1/2 mt-6 pl-0 lg:pl-2">
+            <div class="">
+              <label class="block text-sm text-gray-600">Tanggapan</label>
+              <textarea
+                class="w-full px-5 py-2 text-gray-700 disabled:text-gray-500 bg-gray-200 rounded"
+                rows="6"
+                v-model="prosesTanggapan[activeProses].tanggapan"
+                disabled
+              ></textarea>
+            </div>
+            <div class="">
+              <label class="block text-sm text-gray-600"
+                >Detail Perubahan</label
+              >
+              <input
+                type="text"
+                class="w-full px-5 py-2 text-gray-700 disabled:text-gray-500 bg-gray-200 rounded"
+                v-model="prosesTanggapan[activeProses].detailPerubahan"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="w-1/2 mt-6 pl-0 lg:pl-2 mx-2">
+            <div class="leading-loose">
+              <div class="p-10 bg-white rounded shadow-xl">
+                <p class="text-lg text-center text-gray-800 font-medium pb-4">
+                  Lampiran
+                </p>
+                <div
+                  v-if="
+                    typeof prosesTanggapan[activeProses].lampiran[0] ===
+                    'object'
+                  "
+                >
+                  <div>
+                    <div
+                      v-for="({ filename, location }, i) in prosesTanggapan[
+                        activeProses
+                      ].lampiran"
+                    >
+                      <label class="block text-sm text-gray-600" for="cus_name">
+                        Lampiran {{ i + 1 }}
+                      </label>
+                      <a
+                        :href="`${$axios.defaults.baseURL}${location}`"
+                        target="_blank"
+                      >
+                        {{ filename }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div v-else>
+                  <p class="block text-md text-gray-600">Tidak ada Lampiran</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="text-center mt-20">Tidak ada Tanggapan!!</div>
+    </div>
     <UsersBackToIndex />
   </div>
 </template>
@@ -52,9 +128,20 @@ export default {
         status: "",
       },
     },
+    prosesTanggapan: [],
+    activeProses: 0,
   }),
   created() {
-    this.$nuxt.$on("data", (data) => (this.pengaduan = data));
+    this.$nuxt.$on("data", (data) => {
+      this.pengaduan = data;
+      if (data.tanggapan.length > 0)
+        this.prosesTanggapan = data.tanggapan.map((x) => ({
+          tanggapan: x.tanggapan,
+          detailPerubahan: x.detailPerubahan,
+          lampiran: JSON.parse(x.lampiran),
+          status: data.detail.status,
+        }));
+    });
   },
   beforeDestroy() {
     this.$nuxt.$off("data");
@@ -66,3 +153,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.proses {
+  @apply m-2 bg-stone-500 px-3 rounded shadow text-stone-100 transition hover:text-stone-200 hover:bg-stone-700;
+}
+</style>
