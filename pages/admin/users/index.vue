@@ -42,7 +42,7 @@
 <script>
 import Swal from "sweetalert2";
 export default {
-  middleware: "authenticated",
+  middleware: "admin-only",
   layout: "admin/default",
   data: () => ({
     columns: [

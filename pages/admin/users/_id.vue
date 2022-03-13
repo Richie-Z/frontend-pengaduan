@@ -100,7 +100,7 @@
 
 <script>
 export default {
-  middleware: "authenticated",
+  middleware: "admin-only",
   layout: "admin/default",
   data: () => ({
     data: {
