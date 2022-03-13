@@ -1,24 +1,23 @@
 <template>
   <div>
     <!-- Desktop Header -->
-    <header class="items-center hidden w-full px-6 py-2 bg-white sm:flex">
+    <header class="hidden w-full items-center bg-white px-6 py-2 sm:flex">
       <div class="w-1/2"></div>
-      <div class="relative flex justify-end w-1/2">
+      <div class="relative flex w-1/2 justify-end">
         <font-awesome-icon
           icon="fa-solid fa-circle-user"
-          class="z-10 w-12 !h-10 overflow-hidden cursor-pointer"
+          class="z-10 !h-10 w-12 cursor-pointer overflow-hidden"
           @click="isOpen = !isOpen"
         />
         <button
           v-if="isOpen"
           @click="isOpen = false"
-          class="fixed inset-0 w-full h-full cursor-default"
+          class="fixed inset-0 h-full w-full cursor-default"
         ></button>
         <div
           v-if="isOpen"
-          class="absolute z-10 w-32 py-2 mt-16 bg-white rounded-lg shadow-lg"
+          class="absolute z-10 mt-16 w-32 rounded-lg bg-white py-2 shadow-lg"
         >
-          <a href="#" class="block px-4 py-2 hover:text-stone-500">Account</a>
           <button @click="logout" class="block px-4 py-2 hover:text-stone-500">
             Sign Out
           </button>
@@ -27,11 +26,11 @@
     </header>
 
     <!-- Mobile Header & Nav -->
-    <header class="w-full px-6 py-5 bg-sidebar-500 sm:hidden">
+    <header class="w-full bg-sidebar-500 px-6 py-5 sm:hidden">
       <div class="flex items-center justify-between">
         <nuxt-link
           :to="{ name: 'admin' }"
-          class="text-3xl font-semibold text-white uppercase hover:text-gray-300"
+          class="text-3xl font-semibold uppercase text-white hover:text-gray-300"
           >Admin Pengaduan</nuxt-link
         >
         <button
@@ -51,44 +50,38 @@
       >
         <nuxt-link
           :to="{ name: 'admin' }"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
-          <i class="mr-3 fas fa-tachometer-alt"></i>
+          <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
         </nuxt-link>
-        <a
-          href="blank.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
+        <nuxt-link
+          :to="{ name: 'admin-pengaduan' }"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
-          <i class="mr-3 fas fa-sticky-note"></i>
+          <i class="fas fa-sticky-note mr-3"></i>
           Pengaduan
-        </a>
-        <a
-          href="tables.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
+        </nuxt-link>
+        <nuxt-link
+          :to="{ name: 'admin-members' }"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
-          <i class="mr-3 fas fa-table"></i>
+          <i class="fas fa-table mr-3"></i>
           Members
-        </a>
-        <a
-          href="forms.html"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
+        </nuxt-link>
+        <nuxt-link
+          v-if="isAdmin"
+          :to="{ name: 'admin-users' }"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
-          <i class="mr-3 fas fa-align-left"></i>
+          <i class="fas fa-align-left mr-3"></i>
           Users
-        </a>
-        <a
-          href="#"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
-        >
-          <i class="mr-3 fas fa-user"></i>
-          My Account
-        </a>
+        </nuxt-link>
         <button
           @click="logout"
-          class="flex items-center py-2 pl-4 text-white opacity-75 hover:opacity-100 hover:bg-sidebar-900"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
-          <i class="mr-3 fas fa-sign-out-alt"></i>
+          <i class="fas fa-sign-out-alt mr-3"></i>
           Sign Out
         </button>
       </nav>
@@ -102,6 +95,12 @@ export default {
   data: () => ({
     isOpen: false,
   }),
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     async logout() {
       const response = await this.$axios.$delete("auth/logout");
