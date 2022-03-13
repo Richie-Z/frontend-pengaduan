@@ -12,6 +12,15 @@
           :line-numbers="true"
           :search-options="{ enabled: true }"
         >
+          <div slot="table-actions" class="m-2">
+            <nuxt-link
+              :to="{
+                name: 'admin-users-add',
+              }"
+              class="rounded-lg bg-green-500 px-5 py-2 text-stone-100 shadow-md transition hover:bg-green-700 hover:text-stone-50"
+              >Add</nuxt-link
+            >
+          </div>
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'option'">
               <nuxt-link
@@ -21,6 +30,14 @@
                 }"
                 class="rounded-lg bg-amber-500 px-5 py-2 text-stone-100 shadow-md transition hover:bg-amber-700 hover:text-stone-50"
                 >Detail</nuxt-link
+              >
+              <nuxt-link
+                :to="{
+                  name: 'admin-users-edit-id',
+                  params: { id: props.row.id },
+                }"
+                class="rounded-lg bg-orange-500 px-5 py-2 text-stone-100 shadow-md transition hover:bg-orange-700 hover:text-stone-50"
+                >Edit</nuxt-link
               >
               <button
                 @click="deletePetugas(props.row.id)"
