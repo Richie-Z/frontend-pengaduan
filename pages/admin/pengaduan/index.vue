@@ -64,7 +64,6 @@
 import { Swal } from "~/plugins/swal";
 
 export default {
-  middleware: "authenticated",
   layout: "admin/default",
   data: () => ({
     columns: [

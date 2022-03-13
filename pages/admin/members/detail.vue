@@ -87,12 +87,9 @@
 
 <script>
 export default {
-  middleware: [
-    "authenticated",
-    ({ route, redirect }) => {
-      if (!route.query.memberIP) redirect({ name: "admin" });
-    },
-  ],
+  middleware: ({ route, redirect }) => {
+    if (!route.query.memberIP) redirect({ name: "admin" });
+  },
   layout: "admin/default",
   data: () => ({
     data: [],

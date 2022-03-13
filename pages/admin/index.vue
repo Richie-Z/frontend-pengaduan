@@ -5,10 +5,10 @@
       <div class="w-full px-2 md:w-1/3">
         <div class="mb-4 rounded-lg shadow-sm">
           <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+            class="relative overflow-hidden rounded-lg bg-white shadow-lg md:shadow-xl"
           >
             <div class="relative z-10 px-3 pt-8 pb-10 text-center">
-              <h4 class="text-sm leading-tight text-gray-500 uppercase">
+              <h4 class="text-sm uppercase leading-tight text-gray-500">
                 Pengaduan
               </h4>
               <h3
@@ -27,10 +27,10 @@
       <div class="w-full px-2 md:w-1/3">
         <div class="mb-4 rounded-lg shadow-sm">
           <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+            class="relative overflow-hidden rounded-lg bg-white shadow-lg md:shadow-xl"
           >
             <div class="relative z-10 px-3 pt-8 pb-10 text-center">
-              <h4 class="text-sm leading-tight text-gray-500 uppercase">
+              <h4 class="text-sm uppercase leading-tight text-gray-500">
                 Members
               </h4>
               <h3
@@ -49,10 +49,10 @@
       <div class="w-full px-2 md:w-1/3">
         <div class="mb-4 rounded-lg shadow-sm">
           <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+            class="relative overflow-hidden rounded-lg bg-white shadow-lg md:shadow-xl"
           >
             <div class="relative z-10 px-3 pt-8 pb-10 text-center">
-              <h4 class="text-sm leading-tight text-gray-500 uppercase">
+              <h4 class="text-sm uppercase leading-tight text-gray-500">
                 Users
               </h4>
               <h3
@@ -76,7 +76,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  middleware: "authenticated",
   layout: "admin/default",
   async asyncData({ $axios }) {
     const { data } = await $axios.$get("petugas/dashboard");

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen">
-    <div class="px-20 py-5 rounded-md shadow-md w-fit">
+  <div class="flex min-h-screen items-center justify-center bg-stone-100">
+    <div class="w-fit rounded bg-stone-50 px-20 py-5 shadow shadow-stone-500">
       <div class="form-box">
         <label for="username">Username</label>
         <input type="text" name="username" v-model="data.username" />
@@ -11,7 +11,7 @@
       </div>
       <div class="flex justify-center">
         <button
-          class="px-5 py-2 my-2 rounded-md shadow-md bg-stone-900 text-stone-200"
+          class="my-2 rounded-md bg-stone-900 px-5 py-2 text-stone-200 shadow-md"
           @click="login"
         >
           Submit
@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
 input {
-  @apply border rounded px-1;
+  @apply rounded border px-1;
 }
 .form-box {
   @apply my-2 flex flex-col;
