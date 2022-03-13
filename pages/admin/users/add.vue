@@ -66,10 +66,6 @@ export default {
   }),
   methods: {
     async saveUser() {
-      let body = new FormData();
-      body.append("name", this.data.name);
-      body.append("username", this.data.username);
-      body.append("password", this.data.password);
       const res = await this.$axios.$post("admin", {
         name: this.data.name,
         username: this.data.username,
