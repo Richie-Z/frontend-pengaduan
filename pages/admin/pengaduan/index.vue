@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="pb-6 text-3xl text-black">Pengaduan</h1>
-    <div class="w-full mt-6">
+    <div class="mt-6 w-full">
       <p class="flex items-center pb-3 text-xl">
         <font-awesome-icon icon="fa-solid fa-list" class="mr-3" /> Data
         Pengaduan
@@ -16,13 +16,21 @@
           <template slot="table-row" slot-scope="props">
             <span
               v-if="props.column.field === 'detail.status'"
-              :class="getStatusColor(props.row.detail.status, 'text')"
+              :class="{
+                'text-red-900': props.row.detail.status === 'belumVerif',
+                'text-yellow-900': props.row.detail.status === 'proses',
+                'text-green-900': props.row.detail.status === 'selesai',
+              }"
               class="relative inline-block px-3 py-1 font-semibold leading-tight"
             >
               <span
                 aria-hidden
-                :class="getStatusColor(props.row.detail.status, 'bg')"
-                class="absolute inset-0 bg-red-200 rounded-full opacity-50"
+                :class="{
+                  'bg-red-200': props.row.detail.status === 'belumVerif',
+                  'bg-yellow-200': props.row.detail.status === 'proses',
+                  'bg-green-200': props.row.detail.status === 'selesai',
+                }"
+                class="absolute inset-0 rounded-full opacity-50"
               ></span>
               <span class="relative">{{ props.row.detail.status }}</span>
             </span>
@@ -32,12 +40,12 @@
                   name: 'admin-pengaduan-id',
                   params: { id: props.row.id },
                 }"
-                class="px-5 py-2 transition rounded-lg shadow-md text-stone-100 bg-amber-500 hover:bg-amber-700 hover:text-stone-50"
+                class="rounded-lg bg-amber-500 px-5 py-2 text-stone-100 shadow-md transition hover:bg-amber-700 hover:text-stone-50"
                 >Detail</nuxt-link
               >
               <button
                 @click="deletePengaduan(props.row.id)"
-                class="px-5 py-2 transition rounded-lg shadow-md text-stone-100 bg-rose-500 hover:bg-rose-700 hover:text-stone-50"
+                class="rounded-lg bg-rose-500 px-5 py-2 text-stone-100 shadow-md transition hover:bg-rose-700 hover:text-stone-50"
               >
                 Delete
               </button>
@@ -53,7 +61,7 @@
 </template>
 
 <script>
-import { Toast } from "~/plugins/swal";
+import { Swal } from "~/plugins/swal";
 
 export default {
   middleware: "authenticated",
@@ -75,7 +83,7 @@ export default {
     data: [],
   }),
   async fetch() {
-    this.getData();
+    await this.getData();
   },
   methods: {
     async getData() {
@@ -86,20 +94,28 @@ export default {
         this.data.push(newVal);
       });
     },
-    getStatusColor(data, mode) {
-      let color =
-        data === "belumVerif" ? "red" : data === "proses" ? "orange" : "green";
-      return mode === "text" ? `text-${color}-900` : `bg-${color}-200`;
-    },
-    async deletePengaduan(id) {
-      const response = await this.$axios.delete(`petugas/pengaduan/${id}`);
-      if (response.status) {
-        this.data = [];
-        this.getData();
-      }
-      Toast.fire({
-        icon: response.status ? "success" : "error",
-        title: response.message,
+    deletePengaduan(id) {
+      Swal.fire({
+        title: "Do you want to delete this pengaduan?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await this.$axios.delete(`petugas/pengaduan/${id}`);
+          if (response.status) {
+            this.data = [];
+            this.getData();
+          }
+          Swal.fire(
+            response.message,
+            "",
+            response.status ? "success" : "error"
+          );
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
       });
     },
   },
