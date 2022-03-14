@@ -18,9 +18,8 @@
     </nav>
     <div
       class="custom-container my-10 first-letter:mr-1 first-letter:text-4xl first-letter:font-semibold first-letter:uppercase"
-    >
-      {{ pengaduan.isiLaporan }}
-    </div>
+      v-html="pengaduan.isiLaporan"
+    ></div>
     <div class="custom-container mt-20">
       <h1 class="text-center text-xl font-bold">Lampiran</h1>
       <div
@@ -41,7 +40,7 @@
     </div>
     <div class="custom-container mt-20">
       <h1 class="text-center text-xl font-bold">Tanggapan</h1>
-      <div v-if="prosesTanggapan.length > 0" class="mt-20">
+      <div v-if="prosesTanggapan.length > 0" class="mt-5">
         <div class="flex flex-wrap justify-center">
           <button
             v-for="(v, i) in prosesTanggapan"
@@ -52,6 +51,7 @@
             Proses {{ i + 1 }}
           </button>
         </div>
+
         <div class="flex">
           <div class="mt-6 w-1/2 pl-0 lg:pl-2">
             <div class="">
@@ -64,13 +64,11 @@
               ></textarea>
             </div>
             <div class="">
-              <label class="block text-sm text-gray-600"
-                >Detail Perubahan</label
-              >
+              <label class="block text-sm text-gray-600">Penanggap</label>
               <input
                 type="text"
                 class="w-full rounded bg-gray-200 px-5 py-2 text-gray-700 disabled:text-gray-500"
-                v-model="prosesTanggapan[activeProses].detailPerubahan"
+                v-model="prosesTanggapan[activeProses].penanggap"
                 disabled
               />
             </div>
@@ -110,6 +108,17 @@
                 </div>
               </div>
             </div>
+            <div class="mt-3">
+              <label class="block text-sm text-gray-600"
+                >Detail Perubahan</label
+              >
+              <input
+                type="text"
+                class="w-full rounded bg-gray-200 px-5 py-2 text-gray-700 disabled:text-gray-500"
+                v-model="prosesTanggapan[activeProses].detailPerubahan"
+                disabled
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -140,6 +149,7 @@ export default {
           detailPerubahan: x.detailPerubahan,
           lampiran: JSON.parse(x.lampiran),
           status: data.detail.status,
+          penanggap: x.penanggap.name,
         }));
     });
   },
