@@ -25,14 +25,14 @@
         <h1 class="text-center text-xl font-bold">Lampiran</h1>
         <div
           v-if="pengaduan.lampiran"
-          class="mx-auto mt-10 flex max-w-xl content-center items-center justify-center"
+          class="mx-auto mt-10 flex flex-col content-center items-center justify-center"
         >
           <div
             v-for="({ filename, location }, i) in JSON.parse(
               pengaduan.lampiran
             )"
             :key="i"
-            class="mx-2 rounded-lg bg-stone-300 px-6 py-3 text-sm shadow hover:bg-stone-600 hover:text-stone-100 hover:shadow-xl"
+            class="m-2 rounded-lg bg-stone-300 px-6 py-3 text-sm shadow hover:bg-stone-600 hover:text-stone-100 hover:shadow-xl"
           >
             <a :href="`${$axios.defaults.baseURL}${location}`" target="_blank">
               {{ filename }}
@@ -129,10 +129,26 @@
       <div v-else class="mt-20 text-center">Tidak ada Tanggapan!!</div>
     </div>
     <UsersBackToIndex />
+    <div class="fixed bottom-5 right-10">
+      <button
+        class="rounded-full bg-orange-600 py-2 px-5 text-orange-100 shadow-xl hover:bg-orange-900 hover:text-orange-200 hover:shadow-2xl"
+        @click="show"
+      >
+        Edit
+      </button>
+      <button
+        class="rounded-full bg-red-600 py-2 px-5 text-red-100 shadow-xl hover:bg-red-900 hover:text-red-200 hover:shadow-2xl"
+        @click="deletePengaduan"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
+import PengaduanModal from "@/components/users/PengaduanModal.vue";
 export default {
   layout: "users/PengaduanSlug",
   data: () => ({
@@ -159,6 +175,42 @@ export default {
   },
   beforeDestroy() {
     this.$nuxt.$off("data");
+  },
+  methods: {
+    show() {
+      this.$modal.show(
+        PengaduanModal,
+        {
+          data: this.pengaduan,
+          oldLampiran: JSON.parse(this.pengaduan.lampiran),
+        },
+        { height: "auto", scrollable: true }
+      );
+    },
+    async deletePengaduan() {
+      Swal.fire({
+        title: "Do you want to delete this Pengaduan?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await this.$axios.$delete(
+            `pengaduan/${this.pengaduan.id}`
+          );
+          if (res.status) {
+            Toast.fire({
+              icon: "success",
+              title: res.message,
+            });
+            this.$nuxt.$router.push("/");
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    },
   },
   head() {
     return {
