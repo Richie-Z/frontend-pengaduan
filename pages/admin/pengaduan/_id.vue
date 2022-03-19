@@ -210,6 +210,20 @@
                 Save
               </button>
             </div>
+            <div class="mt-6" v-else>
+              <button
+                class="rounded bg-orange-900 px-4 py-1 font-light tracking-wider text-white"
+                @click="show(activeProses)"
+              >
+                Edit
+              </button>
+              <button
+                class="rounded bg-red-900 px-4 py-1 font-light tracking-wider text-white"
+                @click="deleteTanggapan(activeProses)"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -218,8 +232,8 @@
 </template>
 
 <script>
-import { Toast } from "~/plugins/swal";
-
+import { Toast, Swal } from "~/plugins/swal";
+import TanggapanModal from "@/components/admin/TanggapanModal.vue";
 export default {
   layout: "admin/default",
   data: () => ({
@@ -245,6 +259,7 @@ export default {
     data.detail.nama = data.detail.nama ?? "Anonymous";
     if (data.tanggapan.length > 0)
       this.prosesTanggapan = data.tanggapan.map((x) => ({
+        id: x.id,
         tanggapan: x.tanggapan,
         detailPerubahan: x.detailPerubahan,
         lampiran: JSON.parse(x.lampiran),
@@ -254,6 +269,13 @@ export default {
     this.data = data;
   },
   methods: {
+    show(id) {
+      this.$modal.show(
+        TanggapanModal,
+        { data: this.prosesTanggapan[id] },
+        { height: "auto", scrollable: true }
+      );
+    },
     pushLampiran(key) {
       this.prosesTanggapan[key].lampiran.length >= 6
         ? ""
@@ -266,6 +288,30 @@ export default {
     addProses() {
       this.prosesTanggapan.push({ tanggapan: "", status: "", lampiran: [""] });
       this.activeProses = this.prosesTanggapan.length - 1;
+    },
+    async deleteTanggapan(id) {
+      Swal.fire({
+        title: "Do you want to delete this Tanggapan?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await this.$axios.$delete(
+            `petugas/tanggapan/${this.prosesTanggapan[id].id}`
+          );
+          if (res.status) {
+            Toast.fire({
+              icon: "success",
+              title: res.message,
+            });
+            window.location.reload(true);
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
     },
     async saveTanggapan(id) {
       const body = new FormData();
