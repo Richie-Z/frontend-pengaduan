@@ -16,27 +16,31 @@
         <UsersStatusCircle :status="pengaduan.detail.status" />
       </div>
     </nav>
-    <div
-      class="custom-container my-10 first-letter:mr-1 first-letter:text-4xl first-letter:font-semibold first-letter:uppercase"
-      v-html="pengaduan.isiLaporan"
-    ></div>
-    <div class="custom-container mt-20">
-      <h1 class="text-center text-xl font-bold">Lampiran</h1>
+    <div class="my-10 flex justify-between">
       <div
-        v-if="pengaduan.lampiran"
-        class="mx-auto mt-10 flex max-w-xl content-center items-center justify-center"
-      >
+        class="custom-container w-3/4 first-letter:mr-1 first-letter:text-4xl first-letter:font-semibold first-letter:uppercase"
+        v-html="pengaduan.isiLaporan"
+      ></div>
+      <div class="custom-container !ml-0 w-1/4">
+        <h1 class="text-center text-xl font-bold">Lampiran</h1>
         <div
-          v-for="({ filename, location }, i) in JSON.parse(pengaduan.lampiran)"
-          :key="i"
-          class="mx-2 rounded-lg bg-stone-300 p-5 shadow hover:bg-stone-600 hover:text-stone-100 hover:shadow-xl"
+          v-if="pengaduan.lampiran"
+          class="mx-auto mt-10 flex max-w-xl content-center items-center justify-center"
         >
-          <a :href="`${$axios.defaults.baseURL}${location}`" target="_blank">
-            {{ filename }}
-          </a>
+          <div
+            v-for="({ filename, location }, i) in JSON.parse(
+              pengaduan.lampiran
+            )"
+            :key="i"
+            class="mx-2 rounded-lg bg-stone-300 px-6 py-3 text-sm shadow hover:bg-stone-600 hover:text-stone-100 hover:shadow-xl"
+          >
+            <a :href="`${$axios.defaults.baseURL}${location}`" target="_blank">
+              {{ filename }}
+            </a>
+          </div>
         </div>
+        <div v-else class="mt-20 text-center">Tidak ada lampiran!!</div>
       </div>
-      <div v-else class="mt-20 text-center">Tidak ada lampiran!!</div>
     </div>
     <div class="custom-container mt-20">
       <h1 class="text-center text-xl font-bold">Tanggapan</h1>
