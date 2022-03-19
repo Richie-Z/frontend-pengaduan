@@ -20,7 +20,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "@/plugins/axios",
-    "@/plugins/fontawesome.js",
+    "@/plugins/vue-js-modal",
+    "@/plugins/fontawesome",
     "@/plugins/vuetable.client.js",
   ],
 

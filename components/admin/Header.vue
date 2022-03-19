@@ -18,13 +18,21 @@
           v-if="isOpen"
           class="absolute z-10 mt-16 w-32 rounded-lg bg-white py-2 shadow-lg"
         >
-          <button @click="logout" class="block px-4 py-2 hover:text-stone-500">
+          <button
+            @click="show"
+            class="block px-4 py-2 text-left hover:text-stone-500"
+          >
+            Password
+          </button>
+          <button
+            @click="logout"
+            class="block px-4 py-2 text-left hover:text-stone-500"
+          >
             Sign Out
           </button>
         </div>
       </div>
     </header>
-
     <!-- Mobile Header & Nav -->
     <header class="w-full bg-sidebar-500 px-6 py-5 sm:hidden">
       <div class="flex items-center justify-between">
@@ -78,6 +86,13 @@
           Users
         </nuxt-link>
         <button
+          @click="show"
+          class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
+        >
+          <i class="fas fa-sign-out-alt mr-3"></i>
+          Change Password
+        </button>
+        <button
           @click="logout"
           class="flex items-center py-2 pl-4 text-white opacity-75 hover:bg-sidebar-900 hover:opacity-100"
         >
@@ -91,6 +106,7 @@
 
 <script>
 import { Toast } from "~/plugins/swal";
+import PasswordModal from "@/components/admin/PasswordModal.vue";
 export default {
   data: () => ({
     isOpen: false,
@@ -109,6 +125,12 @@ export default {
         this.$store.dispatch("petugas/storePetugas", null);
         this.$nuxt.$router.push("/");
       }
+    },
+    show() {
+      this.$modal.show(PasswordModal);
+    },
+    hide() {
+      this.$modal.hide(PasswordModal);
     },
   },
 };
