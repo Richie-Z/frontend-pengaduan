@@ -21,4 +21,3 @@ COPY package.json nuxt.config.js ./
 USER node
 EXPOSE 8080
 CMD ["sh", "-c", "npx nuxt start"]
-HEALTHCHECK --interval=10s --timeout=3s --start-period=30s --retries=3 CMD ["sh", "-c", "wget -q -O /dev/null http://127.0.0.1:${PORT}/ || exit 1"]

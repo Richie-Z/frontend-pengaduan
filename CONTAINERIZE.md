@@ -26,3 +26,4 @@ boot + healthcheck only (DB not smoke-tested). db_driver: unknown. Never migrate
 - agent label 'node' unverified on k3s Jenkins (only bun/buildah proven by BenchCheck) - confirm with user
 
 Smoke results: 2026-11-21T15:15:05+07:00 boot=PASS http=200 db=skipped (legacy mysqli app; pgsql not supported without a code rewrite)
+Smoke results: 2026-11-21T21:39:54+07:00 boot=PASS http=200 db=skipped (legacy mysqli app; pgsql not supported without a code rewrite)
